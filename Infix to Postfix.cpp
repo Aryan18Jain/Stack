@@ -123,6 +123,7 @@ int main()
 			    top=pop(top,p);
 			    outcome[j]=p;
 			    j++;
+			    top=push(top,stmt[i]);
 			}
 			else
 			{
@@ -133,6 +134,12 @@ int main()
 			}
 		}
 	}
+	while(peak(top)!='$')
+			{
+			    top=pop(top,p);
+			    outcome[j]=p;
+			    j++;
+			}
 	outcome[j]='@';
 	j=0;
 	while(outcome[j]!='@')
