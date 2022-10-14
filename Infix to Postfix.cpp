@@ -151,3 +151,14 @@ int main()
 	display(top);
 	return 0;
 }
+else
+			{ 
+				char check=stmt[i];
+				do
+				{
+				    top=pop(top,p);
+				    outcome[j]=p;
+			    	j++;
+				}while(priority(check)<=priority(peak(top)));
+				top=push(top,stmt[i]);
+			}
