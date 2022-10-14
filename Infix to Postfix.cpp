@@ -67,12 +67,26 @@ void display(stack * p)
 		
 	}
 }
-void peak(stack * p , char &x)
+char peak(stack * p)
 {
-	x=p->data;
+	return p->data;
+}
+int priority(char ch)
+{
+    switch (ch)
+    {
+        case '$': return 0;
+        case '+': return 1;
+        case '-': return 1;
+        case '*': return 2;
+        case '/': return 2;
+        case '%': return 2;
+    }
+    return-1;
 }
 int main()
 {
+    char p,q;
 	stack * top=NULL;
 	top=push(top,'$');
 	string stmt;
@@ -89,7 +103,34 @@ int main()
 		}
 		else
 		{
+		    if(stmt[i]=='(')
+		    top=push(top,stmt[i]);
+		    else if (priority(stmt[i])>priority(peak(top)) || peak(top)=='(')
 			top=push(top,stmt[i]);
+			else if(peak(top)==')')
+			{
+			    top=pop(top,q);
+			    while(peak(top)!='(')
+			    {
+			        top=pop(top,p);
+			        outcome[j]=p;
+			        j++;
+			    }
+			    top=pop(top,q);
+			}
+			else if(priority(stmt[i])==priority(peak(top)))
+			{
+			    top=pop(top,p);
+			    outcome[j]=p;
+			    j++;
+			}
+			else
+			{
+			    top=pop(top,p);
+			    top=push(top,stmt[i]);
+			    outcome[j]=p;
+			    j++;
+			}
 		}
 	}
 	outcome[j]='@';
